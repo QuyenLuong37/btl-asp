@@ -1,0 +1,49 @@
+﻿@model WebApplication3.Server.EF.Giay
+<div class="item grid__item">
+    <div class="product-item">
+        <div class="product-normal">
+            <div class="product-img position-relative pb-3" style="border-bottom: 1px solid #dcdcdc">
+                <a href="/products/dincox007-white">
+                    <img style="width: 100%" id="1019740063" class="lazyload" src="//product.hstatic.net/1000365025/product/giay-sneaker-cox007-wht-dincox.___result_bd96fb478162419c9ff5fbe96b213b65_large.jpg" data-src="//product.hstatic.net/1000365025/product/giay-sneaker-cox007-wht-dincox.___result_bd96fb478162419c9ff5fbe96b213b65_large.jpg" alt="COX007 WHITE">
+                </a>
+                <div class="product-tags position-absolute" style="top: 0; right: 0;background: #d30000;color: #fff;padding: .25rem">
+                    <div class="tag-saleoff text-center">
+                        -29%
+                    </div>
+
+                </div>
+                <div class="product-actions text-center mt-3">
+                    <div>
+                        <button type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
+                        <button type="button" class="btnBuyNow"><span>Mua ngay</span></button>
+                        <button type="button" class="btnAddToCart"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span></button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="product-title pt-3">
+                <h6 class="font-weight-bolder">@Model.shoeName</h6>
+            </div>
+            <div class="product-price  d-flex justify-content-between">
+                <div class="current-price font-weight-bold" style="color: #d30000">@Model.price</div>
+                @if (Model.comparePrice > 0)
+                {
+                    <div class="original-price font-weight-bold" style="color: grey"><s>@Model.comparePrice</s></div>
+                }
+
+            </div>
+
+            @if (Model.quantitySold != null && Model.quantitySold > 0)
+            {
+                <div class="product-sold">
+                    <span>Đã bán: @Model.quantitySold</span>
+                </div>
+            }
+        </div>
+
+
+    </div>
+
+</div>

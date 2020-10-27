@@ -1,0 +1,273 @@
+﻿
+@model PagedList.IPagedList<WebApplication3.Server.EF.Giay>
+@using PagedList.Mvc;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_LayoutClient</title>
+    <link rel="stylesheet" href="~/Assets/admin/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Assets/admin/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Assets/admin/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Assets/admin/css/adminlte.min.css">
+    <link href="~/Assets/client/css/layout_client.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header ">
+            <div class="header__container container align-items-center d-flex justify-content-between">
+                <div class="header__left  d-flex">
+                    <div class="header__logo d-flex align-items-center pr-3">
+                        <img src="http://theme.hstatic.net/1000365025/1000542873/14/logo.png?v=371" alt="Alternate Text" />
+                    </div>
+                    <div class="header__nav d-flex align-items-center">
+                        <div class="item header__product">
+                            <div><span>Sản phẩm</span></div>
+
+                            <ul>
+                                <li>Giày nam</li>
+                                <li>Giày nữ</li>
+                                <li>Giày thể thao</li>
+                                <li>Giày da</li>
+                                <li>Dép nam</li>
+                                <li>Phụ kiện</li>
+                            </ul>
+                        </div>
+                        <div class="item header__male">
+                            <div><span>Nam</span></div>
+
+                            <ul>
+                                <li>Giày nam</li>
+                                <li>Giày nữ</li>
+                            </ul>
+                        </div>
+                        <div class="item header__female">
+                            <div><span>Nữ</span></div>
+
+                            <ul>
+                                <li>Giày nam</li>
+                                <li>Giày nữ</li>
+                            </ul>
+                        </div>
+                        <div class="item">Hàng giảm giá</div>
+                        <div class="item">Hệ thống cửa hàng</div>
+                        <div class="item">Kiểm tra đơn hàng</div>
+                    </div>
+                </div>
+                <div class="header__right">
+                    <div class="header__cart d-flex">
+                        <div class="mr-3 item">Tài khoản</div>
+                        <div class="item">Giỏ hàng</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header__title">
+
+            </div>
+
+        </div>
+        <div class="body pt-4 pb-4">
+            <div class="container">
+                <div class="product-list__container">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="product-filter">
+                                <div class="product-filter__pirce mb-5 " style="border: 1px solid #999;">
+                                    <h5 class="pt-3 pb-3 pr-3 pl-3 bg-gray mb-0">Khoảng giá</h5>
+                                    <div class="pt-3 pb-3 pr-3 pl-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="all" value="option1" checked>
+                                            <label class="form-check-label" for="all">
+                                                Tất cả
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios2" value="option2">
+                                            <label class="form-check-label" for="exampleRadios2">
+                                                Nhỏ hơn 500,000₫
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios3" value="option1">
+                                            <label class="form-check-label" for="exampleRadios3">
+                                                Từ 500,000₫ - 1,000,000₫
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios4" value="option2">
+                                            <label class="form-check-label" for="exampleRadios4">
+                                                Từ 1,000,000₫ - 1,500,000₫
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios5" value="option1">
+                                            <label class="form-check-label" for="exampleRadios5">
+                                                Từ 1,500,000₫ - 2,000,000₫
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios6" value="option2">
+                                            <label class="form-check-label" for="exampleRadios6">
+                                                Từ 2,000,000₫ - 3,000,000₫
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios7" value="option2">
+                                            <label class="form-check-label" for="exampleRadios7">
+                                                Lớn hơn 3,000,000₫
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product-filter__size" style="border: 1px solid #999;">
+                                    <h5 class="pt-3 pb-3 pr-3 pl-3 bg-gray mb-0">Kích cỡ</h5>
+                                    <div class="pt-3 pb-3 pr-3 pl-3 ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="35" value="option1" checked>
+                                            <label class="form-check-label" for="35">
+                                                35
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="36" value="option2">
+                                            <label class="form-check-label" for="36">
+                                                36
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="37" value="option1">
+                                            <label class="form-check-label" for="37">
+                                                37
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="38" value="option2">
+                                            <label class="form-check-label" for="38">
+                                                38
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="39" value="option1">
+                                            <label class="form-check-label" for="39">
+                                                39
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="40" value="option2">
+                                            <label class="form-check-label" for="40">
+                                                40
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="41" value="option2">
+                                            <label class="form-check-label" for="41">
+                                                41
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="42" value="option1">
+                                            <label class="form-check-label" for="42">
+                                                42
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="43" value="option2">
+                                            <label class="form-check-label" for="43">
+                                                43
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="exampleRadios2" id="44" value="option2">
+                                            <label class="form-check-label" for="44">
+                                                44
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <div class="product-list pl-4 pr-4 ">
+                                <div class="product-list__title mb-4 d-flex justify-content-between">
+                                    <h3>Giày thể thao</h3>
+                                    <div>
+                                        <span>Sắp xếp: </span>
+                                        <select name="SortBy" id="SortBy">
+                                            <option value="manual">Tùy chọn</option>
+                                            <option value="best-selling">Sản phẩm bán chạy</option>
+                                            <option value="title-ascending">Theo bảng chữ cái từ A-Z</option>
+                                            <option value="title-descending">Theo bảng chữ cái từ Z-A</option>
+                                            <option value="price-ascending">Giá từ thấp tới cao</option>
+                                            <option value="price-descending">Giá từ cao tới thấp</option>
+                                            <option value="created-descending">Mới nhất</option>
+                                            <option value="created-ascending">Cũ nhất</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col-4 pl-3 pr-3">
+                                            @Html.Partial("~/Views/_Shared/_ShoeInfo.cshtml", item)
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer pt-4 pb-4">
+            <div class="container">
+                <div class=" row">
+                    <div class="col-4">
+                        <h6>VĂN PHÒNG TP. HỒ CHÍ MINH</h6>
+                        <p>Văn phòng công ty: 290 Tân Sơn Nhì, Phường Tân Sơn Nhì, Quận Tân Phú,Tp. Hồ Chí Minh</p>
+                        <p>0961 9888 40</p>
+                        <p>coxshoesvn@gmail.com</p>
+                    </div>
+                    <div class="col-2">
+                        <h6>LIÊN KẾT NHANH</h6>
+                        <div>
+                            Tìm kiếm
+                        </div>
+                        <div>
+                            Giới thiệu
+                        </div>
+                        <div>
+                            Chính sách đổi trả
+                        </div>
+                        <div>
+                            Chính sách bảo mật
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h6>GIỜ MỞ CỬA VĂN PHÒNG</h6>
+                        <p>Từ 9:00 - 18:00 tất cả các ngày trong tuần (Trừ T7 và CN)</p>
+                        @*nen de trong config system databbase*@
+                    </div>
+                    <div class="col-4">
+                        <h6>ĐĂNG KÝ NHẬN TIN</h6>
+                        <p>Mỗi tháng chúng tôi đều có những đợt giảm giá dịch vụ và sản phẩm nhằm tri ân khách hàng. Để có thể cập nhật kịp thời những đợt giảm giá này, vui lòng nhập địa chỉ email của bạn vào ô dưới đây.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Assets/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/Assets/admin/js/owl.carousel.min.js"></script>
+    <script src="~/Assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

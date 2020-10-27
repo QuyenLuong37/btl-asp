@@ -1,0 +1,189 @@
+﻿@model IEnumerable<WebApplication3.Server.EF.Discount>
+
+@{
+    ViewBag.Title = "Danh sách mã giảm giá";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-header">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Them", "Discount") + "'");">
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    Tên
+                                </th>
+
+                                <th>
+                                    Mã
+                                </th>
+                                <th>
+                                    Giá trị
+                                </th>
+
+                                <th>
+                                    Hình thức giảm giá
+                                </th>
+                                <th>
+                                    Áp dụng sản phẩm
+                                </th>
+                                <th>
+                                    Áp dụng khách hàng
+                                </th>
+                                <th>
+                                    Giới hạn
+                                </th>
+
+                                <th>
+                                    Ngày tạo
+                                </th>
+                                <th>
+                                    Ngày bắt đầu hoạt động
+                                </th>
+                                <th>
+                                    Ngày hết hạn
+                                </th>
+                                <th>
+                                    Trạng thái
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@i</td>
+                                    @{i++;}
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.discountName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.value)
+                                    </td>
+
+                                    <td>
+                                        @if(item.type.Trim() == "fixed") {
+                                            <span>Số tiền cố định</span>
+                                        } else {
+                                            <span>Phần trăm</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.productName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.customerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.limit) lần
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.createdAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.startDate)
+                                    </td>
+                                    <td>
+                                        @if(item.endDate != null)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.endDate)
+                                        } else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if(item.status == true) {
+                                            <span>Hoạt động</span>
+                                        } else
+                                        {
+                                            <span>Hết hạn</span>
+                                        }
+                                    </td>
+                                    <td class="d-flex">
+                                        <i style="padding: .75rem;
+                                            background: #6295a6;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            margin-right: 1rem;" class="far fa-edit"
+                                           onclick="@("window.location.href='" + @Url.Action("Sua", "Discount", new { id = item.discountId}) + "'");">
+                                        </i>
+                                        <i style="padding: .75rem;
+                                            background: #ee5006;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;"
+                                           class="far fa-trash-alt"
+                                           data-toggle="modal" data-target="#exampleModal"
+                                           onclick="popupRemoveShoe(@Html.DisplayFor(modelItem => item.discountId))">
+                                        </i>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc chắn xóa không?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                    <button type="button" class="btn btn-primary" onclick="remove()">Có</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+@section scripts{
+    <script>
+        let selectedIdd = "";
+        function popupRemoveShoe(id) {
+            console.log('id', id);
+            selectedId = id;
+        }
+        function remove() {
+            console.log('selectedId', selectedId);
+            window.location.href = "/Admin/Discount/Xoa/" + selectedId;
+        }
+
+
+    </script>
+}

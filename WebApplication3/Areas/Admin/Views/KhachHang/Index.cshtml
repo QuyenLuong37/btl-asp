@@ -1,0 +1,102 @@
+﻿@model IEnumerable<WebApplication3.Server.EF.KhachHang>
+
+@{
+    ViewBag.Title = "Danh sách khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var data = ViewBag.Message;
+}
+<div class="container-fluid">
+    @if (ViewBag.Message != null)
+    {
+
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Thông báo</strong>
+            </div>
+            <div class="toast-body">
+                @data
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-header">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Them", "KhachHang") + "'");">
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên</th>
+                                <th>Họ</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    @{ i++;}
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.firstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.lastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.phone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.address)
+                                    </td>
+                                    <td>
+                                        <i style="padding: .75rem;
+                                            background: #6295a6;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            margin-right: 1rem;" class="far fa-edit"
+                                           onclick="@("window.location.href='" + @Url.Action("Sua", "KhachHang", new { id = item.userId}) + "'");">
+                                        </i>
+                                        <i style="padding: .75rem;
+                                            background: #ee5006;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;"
+                                           class="far fa-trash-alt"
+                                           onclick="@("window.location.href='" + @Url.Action("XoaKH", "KhachHang", new { id = item.userId}) + "'");">
+                                        </i>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>

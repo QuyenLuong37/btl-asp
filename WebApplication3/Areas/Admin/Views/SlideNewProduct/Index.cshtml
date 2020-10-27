@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebApplication3.Server.EF.SlideNewProduct>
+
+@{
+    ViewBag.Title = "Slide sản phẩm mới";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-header">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Them", "SlideNewProduct") + "'");">
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mô tả</th>
+                                <th>Ngày ra mắt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@i</td>
+                                @{ i++;}
+                                <td>@Html.DisplayFor(modelItem => item.shoeName)</td>
+                                <td>
+                                    @if (item.description != null)
+                                    {
+                                        <span>@item.description</span>
+                                    } else
+                                    {
+                                        <span>-</span>
+                                    }
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.createdAt, "{dd/MM/yyyy}")</td>
+
+                            <td>
+                                <i style="padding: .75rem;
+                                            background: #ee5006;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;"
+                                   class="far fa-trash-alt"
+                                   data-toggle="modal" data-target="#exampleModal"
+                                   onclick="popupRemoveCategory(@Html.DisplayFor(modelItem => item.shoeId))">
+                                </i>
+                            </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc chắn xóa không?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                    <button type="button" class="btn btn-primary" onclick="remove()">Có</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+@section scripts{
+    <script>
+        let selectedIdd = "";
+        function popupRemoveCategory(id) {
+            selectedId = id;
+        }
+        function remove() {
+            console.log('selectedId', selectedId);
+            window.location.href = "/Admin/SlideNewProduct/Xoa/" + selectedId;
+        }
+
+
+    </script>
+}

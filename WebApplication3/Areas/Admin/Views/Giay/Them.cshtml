@@ -1,0 +1,108 @@
+﻿@model WebApplication3.Server.EF.Giay
+@{
+    ViewBag.Title = "Thêm giày";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Them", "Giay", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Giày</h3>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="inputName">Tên giày</label>
+                @Html.EditorFor(model => model.shoeName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên giày", required = "required" } })
+                @Html.ValidationMessageFor(model => model.shoeName, "", new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 1rem">
+                <div style="font-weight: 700;margin-bottom: .5rem">Ảnh</div>
+
+                <img style="object-fit: cover; height: 250px" id="image_upload_preview" src="~/Images/@Html.DisplayFor(modelItem => modelItem.image)" alt="your image" />
+                @Html.EditorFor(model => model.image, new { htmlAttributes = new { @type = "file", @class= "imageConfig", required = "required" } })
+                @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <label for="category">Thể loại giày</label>
+                @Html.DropDownListFor(model => model.categoryId, new SelectList(ViewBag.Categories, "id", "categoryName"), new { @class = "form-control custom-select" })
+                @Html.ValidationMessageFor(model => model.categoryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="inputName">Kích thước</label>
+                @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control", placeholder = "Kích thước ngăn cách nhau bởi dấu phẩy" } })
+                @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="inputStatus">Giá</label>
+                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", placeholder = "Giá", required = "required" } })
+                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="inputStatus">Giá so sánh</label>
+                @Html.EditorFor(model => model.comparePrice, new { htmlAttributes = new { @class = "form-control", placeholder = "Giá so sánh" } })
+                @Html.ValidationMessageFor(model => model.comparePrice, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="inputClientCompany">Số lượng tồn</label>
+
+                @Html.EditorFor(model => model.inventory, new { htmlAttributes = new { @class = "form-control", placeholder = "Số lượng tồn", required="required" } })
+                @Html.ValidationMessageFor(model => model.inventory, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="inputType">Loại</label>
+                @Html.DropDownListFor(model => model.type, new SelectList(new List<Object>{
+                       new { value = "all" , text = "Tất cả", selected = true },
+                       new { value = "male" , text = "Nam"  },
+                       new { value = "female" , text = "Nữ"  },
+                    }, "value", "text"), new { @class = "form-control custom-select" })
+                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <div class="row">
+        <div class="col-12" style="display: flex;justify-content: center;">
+            <a style="margin-right: 1rem;font-size: 20px;" href="@Url.Action("Index", "Giay") " class="btn btn-secondary">Hủy</a>
+            <input style="font-size: 20px" type="submit" value="Thêm" class="btn btn-success">
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+    <script>
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_upload_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        console.log($("#image_upload_preview").attr("src"));
+        const src = $("#image_upload_preview").attr("src");
+        if (src == "/Images/") {
+            $("#image_upload_preview").css("display", "none");
+        }
+        $("#image").change(function () {
+            console.log(this);
+            $("#image_upload_preview").css("display", "block");
+            $("#image_upload_preview").css("margin-bottom", "1rem");
+            readURL(this);
+        });
+
+    </script>
+}

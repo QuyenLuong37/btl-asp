@@ -1,0 +1,122 @@
+﻿
+@model PagedList.IPagedList<WebApplication3.Server.EF.Giay>
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+
+<link href="~/Assets/client/css/paginator.css" rel="stylesheet" />
+<div class="container">
+    <div class="product-list__container">
+        <div class="row">
+            <div class="col-3">
+                <div class="product-filter">
+                    <div class="product-filter__pirce mb-5 " style="border: 1px solid #999;">
+                        @Html.Partial("~/Views/_Shared/_FilterProductBasePrice.cshtml")
+                    </div>
+
+                    <div class="product-filter__size" style="border: 1px solid #999;">
+                        @Html.Partial("~/Views/_Shared/_FilterProductBaseSize.cshtml")
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="product-list pl-4 pr-4 ">
+                    <div class="product-list__title mb-4 d-flex justify-content-between">
+                        <h3>@ViewBag.title</h3>
+                        <div>
+                            <span>Sắp xếp: </span>
+                            <select name="SortBy" id="SortBy">
+                                <option value="manual">Tùy chọn</option>
+                                <option value="best-selling">Sản phẩm bán chạy</option>
+                                <option value="title-ascending">Theo bảng chữ cái từ A-Z</option>
+                                <option value="title-descending">Theo bảng chữ cái từ Z-A</option>
+                                <option value="price-ascending">Giá từ thấp tới cao</option>
+                                <option value="price-descending">Giá từ cao tới thấp</option>
+                                <option value="created-descending">Mới nhất</option>
+                                <option value="created-ascending">Cũ nhất</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if (Model.PageCount == 0)
+                        {
+                            <div class="text-center d-flex justify-content-center w-100 mt-5"><h5 class="">Không có sản phẩm nào!</h5></div>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="col-4 pl-3 pr-3">
+
+                                    <div class="item grid__item">
+                                        <div class="product-item">
+                                            <div class="product-normal">
+                                                <div class="product-img position-relative pb-3" style="border-bottom: 1px solid #dcdcdc">
+                                                    <a href="/products/dincox007-white">
+                                                        <img style="width: 100%;object-fit: cover;height: 250px;" id="1019740063" class="lazyload" src="~/Images/@item.image" />                                                    </a>
+                                                    <div class="product-tags position-absolute" style="top: 0; right: 0;background: #d30000;color: #fff;padding: .25rem">
+                                                        <div class="tag-saleoff text-center">
+                                                            @if (item.promotion != null)
+                                                            {
+                                                                <span>-@item.promotion%</span>
+                                                            }
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="product-actions text-center mt-3">
+                                                        <div>
+                                                            <button type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
+                                                            <button type="button" class="btnBuyNow"><span>Mua ngay</span></button>
+                                                            <button onclick="addCart('@item.shoeId',' @item.shoeName', '@item.price', '@item.image' )">
+                                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="product-title pt-3">
+                                                    <h6 class="font-weight-bolder">@item.shoeName</h6>
+                                                </div>
+                                                <div class="product-price  d-flex justify-content-between">
+                                                    <div class="current-price font-weight-bold" style="color: #d30000">@item.price</div>
+                                                    @if (@item.comparePrice > 0)
+                                                    {
+                                                        <div class="original-price font-weight-bold" style="color: grey"><s>@item.comparePrice</s></div>
+                                                    }
+
+                                                </div>
+
+                                                @if (@item.quantitySold != null && @item.quantitySold > 0)
+                                                {
+                                                    <div class="product-sold">
+                                                        <span>Đã bán: @item.quantitySold</span>
+                                                    </div>
+                                                }
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="pages text-center mt-4 d-flex justify-content-center">
+                    @Html.PagedListPager(Model, page => Url.Action("GiayNu",
+                    new { page, price = ViewBag.price, filterType = ViewBag.filterType, size = ViewBag.size, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" }
+                    })
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

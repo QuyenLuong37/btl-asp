@@ -1,0 +1,47 @@
+﻿
+
+<h5 class="pt-3 pb-3 pr-3 pl-3 bg-gray mb-0">Khoảng giá</h5>
+<div class="pt-3 pb-3 pr-3 pl-3 ">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="all" @(ViewBag.price == "0" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = 0, filterType = "all", size = ViewBag.size, category =  ViewBag.title, typeMaleorFemale = ViewBag.filterTypeMaleorFemale, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="all">
+            Tất cả
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios2" @(ViewBag.price == "500000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "500000", filterType = "lesser", size = ViewBag.size, category =  ViewBag.title, typeMaleorFemale = ViewBag.filterTypeMaleorFemale, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios2">
+            Nhỏ hơn 500,000₫
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios3" @(ViewBag.price == "500000-1000000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "500000-1000000", filterType ="range", size = ViewBag.size, category =  ViewBag.title, typeMaleorFemale = ViewBag.filterTypeMaleorFemale, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios3">
+            Từ 500,000₫ - 1,000,000₫
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios4" @(ViewBag.price == "1000000-1500000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "1000000-1500000", filterType ="range", size = ViewBag.size, category =  ViewBag.title, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios4">
+            Từ 1,000,000₫ - 1,500,000₫
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios5" @(ViewBag.price == "1500000-200000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "1500000-200000", filterType ="range", size = ViewBag.size, category =  ViewBag.title, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios5">
+            Từ 1,500,000₫ - 2,000,000₫
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios6" @(ViewBag.price == "2000000-3000000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "2000000-3000000", filterType ="range", size = ViewBag.size, category =  ViewBag.title, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios6">
+            Từ 2,000,000₫ - 3,000,000₫
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios7" @(ViewBag.price == "3000000" ? "checked" : "") onchange="@("window.location.href='" + @Url.Action(ViewBag.action, "Collection", new { price = "3000000", filterType = "bigger", size = ViewBag.size, category =  ViewBag.title, sortOrder=ViewBag.sortOrder, sortActive=ViewBag.sortActive}) + "'");">
+        <label class="form-check-label" for="exampleRadios7">
+            Lớn hơn 3,000,000₫
+        </label>
+    </div>
+</div>
