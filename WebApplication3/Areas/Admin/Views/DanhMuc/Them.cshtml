@@ -1,0 +1,38 @@
+﻿@model WebApplication3.Server.EF.TheLoai
+@{
+    ViewBag.Title = "Thêm danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Danh mục</h3>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="inputName">Tên danh mục</label>
+                @Html.EditorFor(model => model.categoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên danh mục", required = "required" } })
+                @Html.ValidationMessageFor(model => model.categoryName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="inputName">Mô tả</label>
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", placeholder = "Mô tả", required = "required" } })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <div class="row">
+        <div class="col-12" style="display: flex;justify-content: center;">
+            <a style="margin-right: 1rem;font-size: 20px;" href="@Url.Action("Index", "TheLoai") " class="btn btn-secondary">Hủy</a>
+            <input style="font-size: 20px" type="submit" value="Thêm" class="btn btn-success">
+        </div>
+    </div>
+}
+

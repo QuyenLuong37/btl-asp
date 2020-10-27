@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/_Shared/_LayoutCheckout.cshtml";
+}
+
+
+
+<h2 class="mb-4">Đặt hàng</h2>
+<div class="checkout-info__address">
+    <div class="mb-5">
+        <h5 class="mb-3 font-weight-normal">Phương thức vận chuyển</h5>
+        <div class="pt-3 pb-3 pl-2 pr-2"  style="border:1px solid #eee">
+            <div class="d-flex justify-content-between">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Giao hàng tận nơi
+                    </label>
+                </div>
+                <div><span class="font-weight-normal">40000</span> <span style="text-decoration: underline; font-weight: 500;">đ</span></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h5 class="mb-3 font-weight-normal">Phương thức thanh toán</h5>
+        <div class="pt-3 pb-3 pl-2 pr-2" style="border:1px solid #eee">
+            <div class="d-flex justify-content-between">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cod" id="cod" value="receive" checked>
+                    <label class="form-check-label" for="cod">
+                        Thanh toán khi giao hàng (COD)
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <div class="pt-3 pb-3 pl-2 pr-2" style="border:1px solid #eee">
+            <div class="d-flex justify-content-between">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cod" id="bank" value="bank" checked>
+                    <label class="form-check-label" for="bank">
+                        Chuyển khoản qua ngân hàng
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="checkout-action d-flex justify-content-between">
+    <a href="@Url.Action("Index", "Cart")"><i class="fas fa-angle-left"></i> <span>Trở lại thông tin vận chuyển</span> </a>
+    <button type="button" class="btn btn-primary" onclick="order()">Đặt hàng</button>
+</div>
+
+@section scripts {
+    <script>
+        function order() {
+            fetch('https://localhost:44385/PaymentMethod/Payment', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ list: JSON.parse(localStorage.getItem("giohang")) })
+            }).then(() => {
+                localStorage.removeItem("giohang");
+            }).catch(err => console.log(err));
+        }
+    </script>    
+}

@@ -1,0 +1,124 @@
+﻿@model WebApplication3.Server.EF.Discount
+
+@{
+    ViewBag.Title = "Thêm mã giảm giá";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Mã giảm giá</h3>
+        </div>
+        <div class="card-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.discountId)
+            <div class="form-group">
+                <label>Tên</label>
+                <div>
+                    @Html.EditorFor(model => model.discountName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.discountName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mã giảm giá</label>
+                <div>
+                    @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", placeholder = "Mã giảm giá", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Giá trị</label>
+                <div>
+                    @Html.EditorFor(model => model.value, new { htmlAttributes = new { @class = "form-control", placeholder = "Giá trị", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.value, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label>Hình thức giảm giá</label>
+                <div>
+                    @Html.DropDownListFor(model => model.type, new List<SelectListItem>
+                       {
+                         new SelectListItem { Text = "Phần %", Value = "percentage"},
+                         new SelectListItem { Text = "Tiền", Value = "fixed"}
+                      },
+                      new
+                      {
+                          @class = "form-control custom-select",
+                          required = "required"
+                      })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Áp dụng sản phẩm</label>
+                @Html.DropDownListFor(model => model.applyToProduct, new SelectList(ViewBag.DanhSachGiay, "shoeId", "shoeName"), "Tất cả", new { @class = "form-control custom-select" })
+                @Html.ValidationMessageFor(model => model.applyToProduct, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <label>Áp dụng khách hàng</label>
+                <div>
+                    @Html.DropDownListFor(model => model.applyToCustomer, new SelectList(ViewBag.DanhSachKH, "userId", "firstName", "email", 0), "Tất cả", new { @class = "form-control custom-select" })
+                    @Html.ValidationMessageFor(model => model.applyToCustomer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Giới hạn</label>
+                <div>
+                    @Html.EditorFor(model => model.limit, new { htmlAttributes = new { @class = "form-control", placeholder = "Giới hạn", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.limit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Ngày bắt đầu hoạt động</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", required="required", type = "text", placeholder = "Ngày bắt đầu hoạt động", data_inputmask_alias = "datetime", data_inputmask_inputformat = "dd/mm/yyyy" } })
+                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="xx">Ngày hết hạn</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", type = "text", @placeholder = "Ngày hết hạn", data_inputmask_alias = "datetime", data_inputmask_inputformat = "dd/mm/yyyy", data_mask="data-mask" } })
+                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" style="display: flex;justify-content: center;">
+            <a style="margin-right: 1rem;font-size: 20px;" href="@Url.Action("Index", "Giay") " class="btn btn-secondary">Hủy</a>
+            <input style="font-size: 20px" type="submit" value="Thêm" class="btn btn-success">
+        </div>
+    </div>
+}
+
+@section scripts {
+    
+    <script>
+        $('#startDate').inputmask()
+        $('#endDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+    </script>    
+} 

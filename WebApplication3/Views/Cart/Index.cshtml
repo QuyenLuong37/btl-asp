@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+
+<div class="carts">
+    <div><h2>Giỏ hàng</h2></div>
+
+    <div id="cart-body"></div>
+    
+
+    <div id="cart-footer" class="cart-footer mt-4" >
+        <div class="row" style="max-width: 600px;margin-left: auto">
+            <div class="col-7 note">
+                <div>Chú thích: </div>
+                <textarea class="w-100" style="outline: none;padding: .5rem" rows="5" cols="6"></textarea>
+            </div>
+
+            <div class="col-5 totalMoney flex-column d-flex justify-content-center align-items-center">
+                <div class="mb-2">Tổng tiền: <strong id="total"></strong><span style="text-decoration: underline;font-weight: 700;"> đ</span></div>
+                <div class="action">
+                    <button style="padding: .5rem 1rem;background: #545151;color: #fff;font-weight: 700;" onclick="@("window.location.href='" + @Url.Action("Checkout", "PaymentMethod") + "'");">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var gioHang = JSON.parse(localStorage.getItem("giohang"));
+        var dataCartLocalString = ``;
+        console.log("gioHang", gioHang);
+        if (gioHang && gioHang.length > 0) {
+            loadDataCart(gioHang)
+            tinhTongTien(gioHang);
+            document.getElementById("cart-footer").style.display = "block";
+        } else {
+            document.getElementById("cart-body").innerHTML = `<h5 class="text-center mt-4">Giỏ hàng rỗng!</h5>`;
+            document.getElementById("cart-footer").style.display = "none";
+        }
+
+        function tinhTongTien(gioHang) {
+            tongTien = gioHang.reduce((acc, item) => {
+                return acc + item.price * item.quantity;
+            }, 0);
+            console.log(tongTien);
+            document.getElementById("total").innerHTML = tongTien;
+        }
+
+        function loadDataCart(gioHang) {
+            dataCartLocalString = "";
+            for (i in gioHang) {
+                dataCartLocalString += `<div class="row align-items-center text-center" style="padding: 2rem 0;border-bottom:1px solid #eee;">
+            <div class="col-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <img style="width: 250px; height: 250px; object-fit: cover;" src="/Images/` + gioHang[i].imageUrl + `">
+                    <h5 class="ml-3">` + gioHang[i].name + `</h5>
+                </div>
+            </div>
+            <div class="col-2">
+                <h5>` + gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+            </div>
+            <div class="col-3">
+                <div class="js-qty d-flex" style=" margin: 0 auto;max-width:150px;">
+                    <button type="button" style="width: 30%;outline: none" onclick="decreaseQuantity(` + gioHang[i].id + `)">
+                        <span class="icon icon-minus" aria-hidden="true"></span>
+                        <span class="fallback-text" aria-hidden="true">−</span>
+                    </button>
+                    <input id="quantity" class="text-center" type="number" value="` + gioHang[i].quantity + `" min="1"  style="width: 40%;outline: none" onchange="changeQuantity(event, ` + gioHang[i].id + `)" >
+                    <button type="button"  style="width: 30%;outline: none" onclick="increaseQuantity(` + gioHang[i].id + `)">
+                        <span class="icon icon-plus" aria-hidden="true"></span>
+                        <span class="fallback-text" aria-hidden="true">+</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-2">
+                <h5>` + gioHang[i].quantity * gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+            </div>
+            <div class="col-1 " onclick="removeCart(` + gioHang[i].shoeId +`)">
+                <i class="fas fa-trash-alt" style="color: red;font-size: 1.4rem;margin-bottom: .75rem"></i>
+            </div>
+        </div>`;
+            }
+            document.getElementById("cart-body").innerHTML = `<div class="cart-body">
+        <div class="row mb-3 text-center" style="padding: 2rem 0;border-top: 1px solid #eee;border-bottom:1px solid #eee;">
+            <div class="col-4">
+                <h6>Thông tin chi tiết sản phẩm</h6>
+            </div>
+            <div class="col-2">
+                <h6>Đơn giá	</h6>
+            </div>
+            <div class="col-3">
+                <h6>Số lượng</h6>
+            </div>
+            <div class="col-2">
+                <h6>Tổng giá</h6>
+            </div>
+
+            <div class="col-1"></div>
+        </div>
+        ` + dataCartLocalString + `
+    </div>`;
+        }
+
+       
+        function increaseQuantity(id) {
+            console.log(gioHang);
+            for (i in gioHang) {
+                if (+gioHang[i].id === id) {
+                    gioHang[i].quantity += 1;
+                }
+            }
+            loadDataCart(gioHang);
+            tinhTongTien(gioHang);
+            localStorage.setItem("giohang", JSON.stringify(gioHang));
+            document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        }
+        function decreaseQuantity(id) {
+            for (i in gioHang) {
+                if (+gioHang[i].id === id) {
+                    gioHang[i].quantity -= 1;
+                }
+            }
+            loadDataCart(gioHang);
+            tinhTongTien(gioHang);
+            localStorage.setItem("giohang", JSON.stringify(gioHang));
+            document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        }
+
+        function changeQuantity(element, id) {
+            for (i in gioHang) {
+                if (+gioHang[i].id === id) {
+                    gioHang[i].quantity = +element.target.value;
+                }
+            }
+            loadDataCart(gioHang);
+            tinhTongTien(gioHang);
+            localStorage.setItem("giohang", JSON.stringify(gioHang));
+            document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        }
+
+        function removeCart(id) {
+            gioHang = gioHang.filter(item => +item.shoeId !== id);
+            if(gioHang && gioHang.length > 0) {
+                loadDataCart(gioHang)
+                tinhTongTien(gioHang);
+                document.getElementById("cart-footer").style.display = "block";
+            } else {
+                document.getElementById("cart-body").innerHTML = `<h5 class="text-center mt-4">Giỏ hàng rỗng!</h5>`;
+                document.getElementById("cart-footer").style.display = "none";
+            }
+            localStorage.setItem("giohang", JSON.stringify(gioHang));
+            document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        }
+    </script>    
+}
+

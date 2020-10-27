@@ -1,0 +1,88 @@
+﻿@model WebApplication3.Server.EF.KhachHang
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="~/Assets/admin/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Assets/admin/css/adminlte.min.css">
+</head>
+<body>
+    <div class="checkout">
+        <div class="checkout-wrapper d-flex h-100">
+            <div class="side-left col-6" style="background: #fff;border-right: 1px solid #d7d7d7;padding: 5rem">
+                @RenderBody()
+            </div>
+
+            <div class="side-right col-6" style="background: #eee;padding: 5rem">
+
+                <div id="product-list" class="checkout-product__list pt-3 pb-4" style="border-bottom: 1px solid #999"></div>
+
+
+                @* discount  *@
+                <div class="checkout-discount d-flex  pt-4 pb-4 align-items-center" style="border-bottom: 1px solid #999">
+                    <div>
+                        <select class="custom-select">
+                            <option selected disabled>Mã giảm giá</option>
+                            @foreach (var item in ViewBag.discountList)
+                            {
+                                <option type="@item.type" value="@item.value">@item.discountName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="ml-3"><button type="button" class="btn btn-primary">Sử dụng</button></div>
+                </div>
+
+
+                @*  Fee*@
+
+                <div class="checkout-fee pt-4 pb-4" style="border-bottom: 1px solid #999">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>Tạm tính</div>
+                        <div id="subTotal" class="font-weight-bold"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>Phí ship</div>
+                        <div id="fee" class="font-weight-bold">-40000</div>
+                    </div>
+                </div>
+
+                @* Total money *@
+                <div class="checkout-total pt-3 d-flex justify-content-between align-items-center">
+                    <div>Tổng tiền</div>
+                    <div id="totalPayment" class="font-weight-bold" style="font-size:1.4rem"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Assets/admin/plugins/jquery/jquery.min.js"></script>
+    <script>
+        var gioHang = JSON.parse(localStorage.getItem("giohang"));
+        var dataString = "";
+        for (i in gioHang) {
+            dataString += `
+                                 <div class="product-item d-flex justify-content-between align-items-center" style="padding: 1rem 0;border-bottom: 1px solid #cac5c5;">
+                                            <div class="product-item__detail d-flex align-items-center">
+                                                <div class="product-image position-relative" style="width:85px">
+
+                                                    <img src="/Images/` + gioHang[i].imageUrl + `" alt="Alternate Text" style="    width: 84px;height: 84px;object-fit: cover;background: #999;border: 1px solid #bfbfbf;border-radius: 10px;" />
+                                                    <span class="position-absolute d-flex justify-content-center align-items-center " style="top:-10px;right:-10px;width:30px;height:30px;border-radius:100%;background: #828080;color: #fff">` + gioHang[i].quantity + `</span>
+                                                </div>
+                                                <div style="font-weight:500" class="product-actions ml-3">` + gioHang[i].name + `</div>
+                                            </div>
+                                            <div class="product-price" style="font-weight: 400;font-size: 1rem">` + gioHang[i].price + ` <span style="text-decoration: underline;font-weight: 400;">đ</span></div>
+                                 </div>
+                        `;
+        }
+
+        document.getElementById("product-list").innerHTML = dataString;
+        var subTotal = gioHang.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        document.getElementById("subTotal").innerHTML = subTotal + ` <span style="text-decoration: underline; font-weight: 700;">đ</span>`;
+        var totalPayment = gioHang.reduce((acc, item) => acc + item.price * item.quantity, 0) - 40000;
+        document.getElementById("totalPayment").innerHTML = totalPayment + ` <span style="text-decoration: underline;font-weight: 700;">đ</span>`;
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

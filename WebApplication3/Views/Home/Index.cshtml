@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+<div class="body_container">
+
+    <div class="home__feature mb-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="item font-weight-bold">
+                    VẬN CHUYỂN TOÀN QUỐC
+                </div>
+
+            </div>
+            <div class="col-3">
+                <div class="item font-weight-bold" >
+                    THANH TOÁN ĐẢM BẢO
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="item font-weight-bold" >
+                    ĐỔI TRẢ SẢN PHẨM
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="item font-weight-bold" >
+                    HỖ TRỢ 24/7
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-product__promotion mt-5">
+        <h3 class="body-product__promotion__title text-center">
+            SẢN PHẨM KHUYẾN MÃI
+        </h3>
+        <div class="body-product__promotion-list mt-4 ">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="mr-4 ml-4 mt-0 mb-0">
+                        @*@Html.Partial("~/Views/_Shared/_ShoeInfo.cshtml");*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="body-product__trending" style="margin-top: 4rem">
+        <h3 class="text-center">SẢN PHẨM NỔI BẬT</h3>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY NAM NỔI BẬT</button>
+            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY NỮ NỔI BẬT</button>
+            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY COUPLE</button>
+        </div>
+
+        <div class="body-product__trending-list mt-4">
+            <div class="row">
+                <div class="col-3" style="margin-bottom: 3rem">
+                    @*@Html.Partial("~/Views/_Shared/_ShoeInfo.cshtml");*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-news__trending" style="margin-top: 4rem; border-bottom: 1px solid #dcdcdc;padding-bottom: 2rem">
+        <h3 class="text-center">TIN TỨC NỔI BẬT</h3>
+        <div class="row">
+            <div class="body-news__trending-list mt-4 col-4">
+                <div>
+                    <img src="//file.hstatic.net/1000365025/article/giay-sneaker-c40-white-dincox-4_9b49ae259fb74b71848ccfc08b59d8db_large.png" alt="Các mẫu giày phù hợp mang đi học giá  sinh viên , học sinh">
+                </div>
+                <div class="body-news__title">Các mẫu giày phù hợp mang đi học giá  sinh viên , học sinh</div>
+
+                <div class="body-news__info d-flex">
+                    <div class="body-news_date mr-3">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <span>30/09/2020</span>
+                    </div>
+                    <div class="body-news_author mr-3">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>Quyen Luong</span>
+                    </div>
+                    <div class="body-news_comment">
+                        <i class="fas fa-comments"></i>
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    </script>
+
+}

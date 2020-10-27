@@ -1,0 +1,139 @@
+﻿@model PagedList.IPagedList<WebApplication3.Server.EF.Giay>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách giày";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-header">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Them", "Giay") + "'");">
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Mã sản phẩm</th>
+                                <th style="text-align: center">Hình ảnh</th>
+                                <th>Tên giày</th>
+                                <th>Thể loại giày</th>
+                                <th>Loại</th>
+                                <th>Giá</th>
+                                <th>Tồn kho</th>
+                                <th>Số lượng bán</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    @{ i++;}
+                                    <td>@Html.DisplayFor(modelItem => item.shoeId)</td>
+                                    <td style="text-align:center">
+                                        <img width="80" height="80" style="border-radius: 5px;object-fit: cover" src="~/Images/@Html.DisplayFor(modelItem => item.image)" alt="Alternate Text" />
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.shoeName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.categoryName)</td>
+                                    <td>
+                                        @if (item.type.Trim() == "all")
+                                        {
+                                            <span>Nam, Nữ</span>
+                                        }
+                                        else if (item.type.Trim() == "male")
+                                        {
+                                            <span>Nam</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Nữ</span>
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.price) <span style="text-decoration: underline;font-weight: 700;">đ</span></td>
+                                    <td>@Html.DisplayFor(modelItem => item.inventory)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.viewCount)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.createdAt, "{dd/MM/yyyy}")</td>
+                                    <td>
+                                        <i style="padding: .75rem;
+                                            background: #6295a6;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            margin-right: 1rem;" class="far fa-edit"
+                                           onclick="@("window.location.href='" + @Url.Action("Sua", "Giay", new { id = item.shoeId}) + "'");">
+                                        </i>
+                                        <i style="padding: .75rem;
+                                            background: #ee5006;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;"
+                                           class="far fa-trash-alt"
+                                           data-toggle="modal" data-target="#exampleModal"
+                                           onclick="popupRemoveShoe(@Html.DisplayFor(modelItem => item.shoeId))">
+                                        </i>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc chắn xóa không?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                    <button type="button" class="btn btn-primary" onclick="remove()">Có</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+@section scripts{
+    <script>
+        let selectedIdd = "";
+        function popupRemoveShoe(id) {
+            console.log('id', id);
+            selectedId = id;
+        }
+        function remove() {
+            console.log('selectedId', selectedId);
+            window.location.href = "/Admin/Giay/Xoa/" + selectedId;
+        }
+
+
+    </script>
+}

@@ -1,0 +1,12 @@
+F:\ASP.NET\WebApplication3\Model\bin\Debug\Model.dll.config
+F:\ASP.NET\WebApplication3\Model\bin\Debug\Model.dll
+F:\ASP.NET\WebApplication3\Model\bin\Debug\Model.pdb
+F:\ASP.NET\WebApplication3\Model\bin\Debug\EntityFramework.dll
+F:\ASP.NET\WebApplication3\Model\bin\Debug\EntityFramework.SqlServer.dll
+F:\ASP.NET\WebApplication3\Model\bin\Debug\EntityFramework.xml
+F:\ASP.NET\WebApplication3\Model\bin\Debug\EntityFramework.SqlServer.xml
+F:\ASP.NET\WebApplication3\Model\obj\Debug\Model.csprojAssemblyReference.cache
+F:\ASP.NET\WebApplication3\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+F:\ASP.NET\WebApplication3\Model\obj\Debug\Model.csproj.CopyComplete
+F:\ASP.NET\WebApplication3\Model\obj\Debug\Model.dll
+F:\ASP.NET\WebApplication3\Model\obj\Debug\Model.pdb
