@@ -340,10 +340,24 @@
     <Content Include="Assets\admin\plugins\pdfmake\pdfmake.js" />
     <Content Include="Assets\admin\plugins\pdfmake\pdfmake.min.js" />
     <Content Include="Assets\admin\plugins\pdfmake\vfs_fonts.js" />
+    <Content Include="Assets\client\css\basic.css" />
+    <Content Include="Assets\client\css\fonts.css" />
+    <Content Include="Assets\client\css\layout.css" />
     <Content Include="Assets\client\css\layout_client.css" />
     <Content Include="Assets\client\css\paginator.css" />
+    <Content Include="Assets\client\css\responsive.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -351,16 +365,20 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhMucController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DonHangsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiayController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideNewProductController.cs" />
+    <Compile Include="Areas\Admin\ModelAdmin\ChiTietDonHangViewModel.cs" />
+    <Compile Include="Areas\Admin\ModelAdmin\DonHangViewModel.cs" />
     <Compile Include="Authorize\AuthorizeUserAttribute.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ChiTietSanPhamController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentMethodController.cs" />
@@ -436,6 +454,10 @@
     <Content Include="Assets\admin\plugins\moment\moment.min.js.map" />
     <Content Include="Areas\Admin\Views\SlideNewProduct\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SlideNewProduct\Them.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\_Shared\_LayoutClient.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -453,6 +475,13 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\_Shared\_LayoutCheckout.cshtml" />
     <Content Include="Views\PaymentMethod\Payment.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
+    <Content Include="Views\Home\_KhuyenMai.cshtml" />
+    <Content Include="Views\Home\_SanPhamMoi.cshtml" />
+    <Content Include="Views\Home\KiemTraDonHang.cshtml" />
+    <Content Include="Views\ChiTietSanPham\Details.cshtml" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

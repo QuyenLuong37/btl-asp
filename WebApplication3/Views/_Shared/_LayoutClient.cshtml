@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/Assets/admin/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/Assets/admin/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="~/Assets/admin/css/adminlte.min.css">
+    <link href="~/Assets/client/css/layout.css" rel="stylesheet" />
     <link href="~/Assets/client/css/layout_client.css" rel="stylesheet" />
 </head>
 <body>
@@ -17,7 +18,7 @@
             <div class="header__container container align-items-center d-flex justify-content-between">
                 <div class="header__left  d-flex">
                     <div class="header__logo d-flex align-items-center pr-3">
-                        <img src="http://theme.hstatic.net/1000365025/1000542873/14/logo.png?v=371" alt="Alternate Text" />
+                        <img onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" src="http://theme.hstatic.net/1000365025/1000542873/14/logo.png?v=371" alt="Alternate Text" />
                     </div>
                     <div class="header__nav d-flex align-items-center">
                         <div class="item header__product">
@@ -65,13 +66,26 @@
                             </ul>
                         </div>
                         <div class="item">Hàng giảm giá</div>
-                        <div class="item">Hệ thống cửa hàng</div>
+                        @*<div class="item">Hệ thống cửa hàng</div>*@
                         <div class="item">Kiểm tra đơn hàng</div>
                     </div>
                 </div>
                 <div class="header__right">
                     <div class="header__cart d-flex">
-                        <div class="mr-3 item">Tài khoản</div>
+                        @if (@HttpContext.Current.Session["USER_ID"] != null)
+                        {
+                        <div class="mr-1 item" onclick="@("window.location.href='" + @Url.Action("MyAccount", "Account") + "'");">
+                            Chào, @HttpContext.Current.Session["lastName"] @HttpContext.Current.Session["firstName"]
+                        </div>
+                            <div class="mr-3 item">Đăng xuất</div>
+                        }
+                        else
+                        {
+                            <div class="mr-3 item" onclick="@("window.location.href='" + @Url.Action("Index", "Account") + "'");">
+                                Tài khoản
+                            </div>
+                        }
+
                         <div class="item" onclick="@("window.location.href='" + @Url.Action("Index", "Cart") + "'");">Giỏ hàng <span id="cartCount"></span></div>
                     </div>
                 </div>
@@ -139,19 +153,21 @@
         } else {
             gioHang = [];
         }
-        function addCart(id, name, price, imageUrl) {
+        function addCart(id, name, price, imageUrl, quantity = 1) {
             var checkExist;
             if (gioHang.length) {
                 for (i in gioHang) {
-                    if (gioHang[i].shoeId === id) {
-                        gioHang[i].quantity += 1;
+                    console.log("tang uantity cua: ", i);
+                    if (gioHang[i].shoeId === +id) {
+                        gioHang[i].quantity += +quantity;
                         checkExist = true;
                     }
                 }
             }
 
             if (!checkExist) {
-                var sanpham = { shoeId: id, name, price: +price, quantity: 1, imageUrl };
+                console.log("new sp");
+                var sanpham = { shoeId: +id, name, price: +price, quantity: +quantity, imageUrl };
                 gioHang.push(sanpham);
             }
             window.localStorage.setItem("giohang", JSON.stringify(gioHang));

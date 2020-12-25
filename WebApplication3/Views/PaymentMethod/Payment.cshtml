@@ -18,7 +18,7 @@
                         Giao hàng tận nơi
                     </label>
                 </div>
-                <div><span class="font-weight-normal">40000</span> <span style="text-decoration: underline; font-weight: 500;">đ</span></div>
+                <div><span class="font-weight-normal">40,000.00</span> <span style="text-decoration: underline; font-weight: 500;">đ</span></div>
             </div>
 
         </div>
@@ -37,7 +37,7 @@
             </div>
 
         </div>
-        <div class="pt-3 pb-3 pl-2 pr-2" style="border:1px solid #eee">
+        @*<div class="pt-3 pb-3 pl-2 pr-2" style="border:1px solid #eee">
             <div class="d-flex justify-content-between">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="cod" id="bank" value="bank" checked>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>*@
     </div>
 </div>
 
@@ -66,8 +66,12 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ list: JSON.parse(localStorage.getItem("giohang")) })
-            }).then(() => {
+            }).then((res) => {
                 localStorage.removeItem("giohang");
+                console.log("res: ", res);
+                if (res.status == "200") {
+                    window.location.href = '@Url.Action("Index", "Home")';
+                }
             }).catch(err => console.log(err));
         }
     </script>    

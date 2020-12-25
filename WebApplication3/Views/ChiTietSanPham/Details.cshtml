@@ -1,0 +1,81 @@
+﻿@model WebApplication3.Server.EF.Giay
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+
+<section class=" m-t-30 m-b-30">
+    <div class="container">
+        <div class="row">
+            <div class="c12">
+                <div class="view m-r-15 p-t-20">
+                    <div class="sections ">
+                        <div class="sections-content">
+                            <div class="c5">
+                                <div class="crop2">
+                                    <img src="~/Images/@Model.image">
+                                </div>
+                            </div>
+                            <div class="c1"></div>
+                            <div class="c6">
+                                <p class="name"><strong>@Model.shoeName</strong></p>
+                                <p class="name1"> Mã SP: #@Model.shoeId</p>
+                                <hr class="m-t-10 m-b-10" width="100%" align="center" color="gray">
+                                <p class="name2 ">
+                                    @{
+                                        var price = Convert.ToDecimal(@Model.price).ToString("#,##0.00");
+                                        var cpprice = Convert.ToDecimal(@Model.comparePrice).ToString("#,##0.00");
+                                    }
+                                    @price<ins>đ</ins>
+                                    <span style="color: #999" class="original-price ComparePrice ml-2">
+                                        @if (Model.comparePrice > Model.price)
+                                        {
+                                            <s>@cpprice ₫</s>
+                                        }
+                                    </span>
+                                </p>
+                                <hr class="m-t-10 m-b-10" width="100%" align="center" color="gray">
+                                <p class="name1"> Kích thước: @Model.size</p>
+                                @*<input type="checkbox" name="option1" value="36" style="width:30px;height:30px;">*@
+
+                                <p><h3 style="font-size:1.4rem !important">Hotline: 0961 9888 40</h3></p>
+                                <hr class="m-t-10 m-b-10" width="100%" align="center" color="gray">
+                                <p><h3 style="font-size:1.4rem !important">Số lượng</h3></p>
+                                <div class="c3">
+
+                                    @*<button onclick="subtraction()">-</button>*@
+                                    <input id="demo" type="number" value="1" >
+                                    @*<button onclick="sum()">+</button>*@
+
+                                </div>
+                                <div class="c3 menu " style="width: 35%" onclick="addCart('@Model.shoeId', ' @Model.shoeName', '@Model.price', '@Model.image', document.getElementById('demo').value)">
+                                    <a href="">THÊM VÀO GIỎ</a>
+
+                                </div>
+                                <div class="c3 menu" style="width: 30%" onclick="addCart('@Model.shoeId', ' @Model.shoeName', '@Model.price', '@Model.image', document.getElementById('demo').value);@("window.location.href='" + @Url.Action("Index", "Cart") + "'");">
+                                    <a href="">MUA NGAY</a>
+
+                                </div>
+                                <div class="clr"></div>
+                                <h3 class="name1 mt-3" style="font-weight: 700"> Thông tin sản phẩm</h3>
+                                <p>@Model.description</p>
+                                @*<p class="name1">Chất liệu: da bò </p>
+                                <p class="name1">Đế: cao su thiên nhiên chống trơn trượt, tạo độ vững chức cho khách hàng khi bước đi.</p>
+                                <p class="name1">Bên trong: lót mút đàn hồi và lót mút vòng cổ giày tạo độ êm cho chân khi mang. </p>
+                                <p class="name1">Phù hợp sử dụng đi làm đi chơi đi tiệc. </p>*@
+                                <p class="name1">DinCox là Thương hiệu giày Việt Nam và phát triển hơn 4 năm qua trên thị trường với những thiết kế lịch sự, thời trang, phù hợp vợi mọi lứa tuổi, hiện đại kết hợp với đơn giản. </p>
+                                <p class="name1">Tự Hào Giày Chuẩn EU-Giá Ưu Việt</p>
+                                <p class="name1">-Bảo hành giày trong vòng 6 tháng </p>
+                                <p class="name1">Hỗ trợ đổi size trong vòng 1 tuần. </p>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+</section>

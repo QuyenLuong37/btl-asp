@@ -12,7 +12,7 @@ namespace WebApplication3.Authorize
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var s = httpContext.Session["USER_SESSION"];
+            var s = httpContext.Session["USER_ID"];
             if (s != null) {
                 return true;
             }
@@ -21,7 +21,7 @@ namespace WebApplication3.Authorize
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            var s = filterContext.HttpContext.Session["USER_SESSION"];
+            var s = filterContext.HttpContext.Session["USER_ID"];
             if (s != null)
             {
                 base.HandleUnauthorizedRequest(filterContext);

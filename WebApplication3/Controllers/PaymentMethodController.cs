@@ -15,28 +15,37 @@ namespace WebApplication3.Controllers
         {
             DiscountDAO dc = new DiscountDAO();
             ViewBag.discountList = dc.GetAll();
-            return View();
+            var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+            if (userId != null)
+            {
+                return View();
+            }
+            Session.Add("NOT_LOGGED_IN", true);
+            return RedirectToAction("Index", "Account");
         }
 
-        public ActionResult Payment()
+        public ActionResult Payment(String address)
         {
             DiscountDAO dc = new DiscountDAO();
             ViewBag.discountList = dc.GetAll();
+            Session.Add("ADDRESS", address);
             return View();
         }
-
+        private HttpContextBase Context { get; set; }
         [HttpPost]
         public ActionResult Payment(ICollection<ChiTietDonHang> list)
         {
             DonHang dh = new DonHang();
             DonHangDAO dhDAO = new DonHangDAO();
-            dh.address = "Vinh";
-            dh.customerId = 1;
+            dh.userId = Convert.ToInt32(System.Web.HttpContext.Current.Session["USER_ID"]);
+            dh.address = Convert.ToString(System.Web.HttpContext.Current.Session["ADDRESS"]);
             dh.ChiTietDonHangs = list;
+            dh.status = "pending";
+            dh.createdAt = DateTime.Now;
             dhDAO.them(dh);
             DiscountDAO dc = new DiscountDAO();
             ViewBag.discountList = dc.GetAll();
-            return RedirectToAction("Index", "Home");
+            return Content("ok na");
         }
     }
 }

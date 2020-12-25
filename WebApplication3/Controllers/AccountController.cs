@@ -11,12 +11,33 @@ namespace WebApplication3.Controllers
 {
     public class AccountController : Controller
     {
+
+        private ShopBanGiayDbConText db = new ShopBanGiayDbConText();
         // GET: Account
         public ActionResult Index()
         {
             DanhMucDAO dm = new DanhMucDAO();
             ViewBag.danhMuc = dm.GetAll().ToList();
+            var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+            if (userId != null)
+            {
+                var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
+                return RedirectToAction("MyAccount");
+            }
             return View();
+        }
+
+        public ActionResult MyAccount()
+        {
+            DanhMucDAO dm = new DanhMucDAO();
+            ViewBag.danhMuc = dm.GetAll().ToList();
+            var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+            if (userId != null)
+            {
+                var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
+                return View(kh);
+            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult Register()

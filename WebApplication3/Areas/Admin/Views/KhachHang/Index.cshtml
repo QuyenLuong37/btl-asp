@@ -1,5 +1,5 @@
-﻿@model IEnumerable<WebApplication3.Server.EF.KhachHang>
-
+﻿@model PagedList.IPagedList<WebApplication3.Server.EF.KhachHang>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Danh sách khách hàng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -99,4 +99,12 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+    <div class="pages text-center mt-4 d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+            {
+                LiElementClasses = new string[] { "page-item" }
+            })
+
+    </div>
 </div>

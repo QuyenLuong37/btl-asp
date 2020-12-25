@@ -1,7 +1,7 @@
 ﻿
 
 @{
-    ViewBag.Title = "Bảng điều khiển";
+    //ViewBag.Title = "Bảng điều khiển";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,9 +14,11 @@
     <title>Index</title>
 </head>
 <body>
-    <div>
-        day la trang chu admin
-        <a href="@Url.Action("Logout", "Home")">Logout</a>
+    <div class="ml-3">
+        <h3>Chào, @HttpContext.Current.Session["HoAdmin"] @HttpContext.Current.Session["TenAdmin"]</h3>
+        <div>
+            <a href="@Url.Action("Logout", "Home")">Đăng xuất</a>
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,96 @@
+﻿@model WebApplication3.Areas.Admin.ModelAdmin.DonHangViewModel
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="padding: 15px 1rem;">
+    <div class="order-header" style="padding-left: 13px">
+        <div>
+            <div class="flex" style="display: flex;font-size: 1.2rem">
+                <div style="display: flex;">
+                    <div style="font-weight: 600">Họ tên khách hàng: </div>
+                    <div class="ml-3"> @Model.customerName</div>
+                </div>
+            </div>
+            <div class="flex" style="display: flex;font-size: 1.2rem">
+                <div style="font-weight: 600">Mã hóa đơn: </div>
+                <div class="ml-3" style="color: #999"> #@Model.orderId</div>
+            </div>
+        </div>
+        <div class="order-address flex" style="display: flex;font-size: 1.2rem">
+            <div style="font-weight: 600">Địa chỉ: </div>
+            <div class="ml-3"> @Model.address</div>
+        </div>
+        <div class="order-status flex" style="display: flex;font-size: 1.2rem">
+            <div style="font-weight: 600">Trạng thái: </div>
+            @if (Model.status == "pending")
+            {
+                <div class="ml-3">Đang chờ</div>
+            }
+            else if (Model.status == "deliver")
+            {
+                <div class="ml-3">Đang giao</div>
+            }
+            else if (Model.status == "delivered")
+            {
+                <div class="ml-3">Đã nhận</div>
+            }
+            else if (Model.status == "canceled")
+            {
+                <div class="ml-3">Đã hủy</div>
+            }
+
+        </div>
+    </div>
+    <hr />
+    <div class="order-body">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Số lượng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listOrders)
+                {
+                <tr>
+                    <th>@item.name</th>
+                    @{
+                        var num = Convert.ToDecimal(@item.price).ToString("#,##0.00");
+                    }
+                    <td>@num đ</td>
+                    <td>@item.quantity</td>
+                </tr>
+                }
+
+            <tr style="border-top: 1px solid #c5c5c5;">
+                <th scope="col">Tổng</th>
+                @{
+                    var totalMoney = Convert.ToDecimal(Model.totalMoney).ToString("#,##0.00");
+                }
+                <td>@totalMoney đ</td>
+                <td>@Model.totalQuantity</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="order-footer flex justify-content-end">
+        <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "all" }) + "'");" type="button" class="btn btn-secondary">Quay lại</button>
+        @if (Model.status == "pending")
+        {
+            <button onclick="@("window.location.href='" + @Url.Action("UpdateStatus", "DonHangs", new { orderId = Model.orderId, status = "deliver" }) + "'");" type="button" class="btn btn-primary">Gửi đơn hàng</button>
+        }
+        else if (Model.status == "deliver")
+        {
+            <button onclick="@("window.location.href='" + @Url.Action("UpdateStatus", "DonHangs", new { orderId = Model.orderId, status = "canceled" }) + "'");" type="button" class="btn btn-danger">Hủy đơn hàng</button>
+        }
+    </div>
+</div>
+

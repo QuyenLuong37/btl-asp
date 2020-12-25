@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApplication3.Areas.Admin.ModelAdmin.DonHangViewModel>
+
+@{
+    ViewBag.Title = "KiemTraDonHang";
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Đơn hàng</th>
+                <th>Ngày</th>
+                <th>Tình trạng thanh toán</th>
+                <th>Tình trạng vận chuyển</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <th>#@item.orderId</th>
+                <td>@item.createdAt</td>
+                <td>@item.status</td>
+                <td>Thanh toán khi nhận hàng</td>
+                <td>
+                    @{ 
+                        var num = Convert.ToDecimal(@item.totalMoney).ToString("#,##0.00");
+                    }
+                    @num đ
+                </td>
+            </tr>
+            }
+            </tbody>
+    </table>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.totalMoney)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.orderId)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.createdAt)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+    <td>
+        Thanh toán khi giao hàng
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.totalMoney)
+    </td>
+</tr>
+}
+
+</table>*@
