@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication3.Areas.Admin.ModelAdmin;
+using WebApplication3.Authorize;
 using WebApplication3.Server.DAO;
 using WebApplication3.Server.EF;
 
@@ -20,6 +21,16 @@ namespace WebApplication3.Controllers
             return View();
         }
 
+        public ActionResult UpdateStatus(int orderId, string status)
+        {
+            var _dh = new DonHang() { orderId = orderId, status = status };
+            db.DonHangs.Attach(_dh);
+            db.Entry(_dh).Property(X => X.status).IsModified = true;
+            db.SaveChanges();
+            return RedirectToAction("KiemTraDonHang");
+        }
+
+        [AuthorizeClient]
         public ActionResult KiemTraDonHang()
         {
             DanhMucDAO dm = new DanhMucDAO();

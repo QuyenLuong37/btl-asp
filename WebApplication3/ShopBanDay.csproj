@@ -373,6 +373,7 @@
     <Compile Include="Areas\Admin\Controllers\SlideNewProductController.cs" />
     <Compile Include="Areas\Admin\ModelAdmin\ChiTietDonHangViewModel.cs" />
     <Compile Include="Areas\Admin\ModelAdmin\DonHangViewModel.cs" />
+    <Compile Include="Authorize\AuthorizeClient.cs" />
     <Compile Include="Authorize\AuthorizeUserAttribute.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserSession.cs" />
@@ -380,6 +381,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ChiTietSanPhamController.cs" />
     <Compile Include="Controllers\CollectionController.cs" />
+    <Compile Include="Controllers\HangKhuyenMaiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentMethodController.cs" />
     <Compile Include="Global.asax.cs">
@@ -482,6 +484,7 @@
     <Content Include="Views\ChiTietSanPham\Details.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\HangKhuyenMai\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

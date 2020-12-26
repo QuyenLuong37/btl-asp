@@ -14,16 +14,24 @@ namespace WebApplication3.Controllers
 
         private ShopBanGiayDbConText db = new ShopBanGiayDbConText();
         // GET: Account
-        public ActionResult Index()
+        public ActionResult Index(bool? isLogout)
         {
+
             DanhMucDAO dm = new DanhMucDAO();
             ViewBag.danhMuc = dm.GetAll().ToList();
-            var userId = System.Web.HttpContext.Current.Session["USER_ID"];
-            if (userId != null)
+            if (isLogout == true) {
+                System.Web.HttpContext.Current.Session.Clear();
+               
+            } else
             {
-                var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
-                return RedirectToAction("MyAccount");
+                var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+                if (userId != null)
+                {
+                    var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
+                    return RedirectToAction("MyAccount");
+                }
             }
+            
             return View();
         }
 

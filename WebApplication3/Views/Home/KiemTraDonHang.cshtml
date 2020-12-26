@@ -4,6 +4,7 @@
     ViewBag.Title = "KiemTraDonHang";
     Layout = "~/Views/_Shared/_LayoutClient.cshtml";
 }
+    <h3>Đơn hàng</h3>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -12,6 +13,7 @@
                 <th>Tình trạng thanh toán</th>
                 <th>Tình trạng vận chuyển</th>
                 <th>Tổng tiền</th>
+                <td>Hành động</td>
             </tr>
         </thead>
         <tbody>
@@ -20,13 +22,41 @@
             <tr>
                 <th>#@item.orderId</th>
                 <td>@item.createdAt</td>
-                <td>@item.status</td>
+                <td>
+                    @if (@item.status == "pending")
+                    {
+                        <div class="ml-3">Đang chờ</div>
+                    }
+                    else if (@item.status == "deliver")
+                    {
+                        <div class="ml-3">Đang giao</div>
+                    }
+                    else if (@item.status == "delivered")
+                    {
+                        <div class="ml-3">Đã nhận</div>
+                    }
+                    else if (@item.status == "canceled")
+                    {
+                        <div class="ml-3">Đã hủy</div>
+                    }
+                </td>
                 <td>Thanh toán khi nhận hàng</td>
                 <td>
                     @{ 
                         var num = Convert.ToDecimal(@item.totalMoney).ToString("#,##0.00");
                     }
                     @num đ
+                </td>
+                <td>
+                    @if (@item.status == "canceled")
+                    {
+                        <div class="ml-3">-</div>
+                    }
+                    else
+                    {
+                        <button onclick="@("window.location.href='" + @Url.Action("UpdateStatus", "Home", new { orderId = @item.orderId, status = "canceled" }) + "'");" class="btn btn-primary">Hủy đơn hàng</button>
+
+                    }
                 </td>
             </tr>
             }

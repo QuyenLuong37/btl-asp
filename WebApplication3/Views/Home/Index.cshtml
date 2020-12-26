@@ -34,8 +34,10 @@
         <h3 class="body-product__promotion__title text-center">
             SẢN PHẨM KHUYẾN MÃI
         </h3>
-        
-        <div class="body-product__promotion-list mt-4 ">
+        <div class=" mt-3 mb-2 mr-3" style="text-align: end;color: #38bdf7; cursor: pointer">
+            <span onclick="@("window.location.href='" + @Url.Action("Index", "HangKhuyenMai") + "'");">Xem tất cả</span>
+        </div>
+        <div class="body-product__promotion-list ">
             <div class="owl-carousel owl-theme">
                 @{
                     Html.RenderAction("_KhuyenMai", "Home");

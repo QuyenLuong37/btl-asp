@@ -65,9 +65,9 @@
                                 }
                             </ul>
                         </div>
-                        <div class="item">Hàng giảm giá</div>
+                        <div class="item" onclick="@("window.location.href='" + @Url.Action("Index", "HangKhuyenMai" ) + "'");">Hàng giảm giá</div>
                         @*<div class="item">Hệ thống cửa hàng</div>*@
-                        <div class="item">Kiểm tra đơn hàng</div>
+                        <div class="item" onclick="@("window.location.href='" + @Url.Action("KiemTraDonHang", "Home" ) + "'");">Kiểm tra đơn hàng</div>
                     </div>
                 </div>
                 <div class="header__right">
@@ -77,7 +77,7 @@
                         <div class="mr-1 item" onclick="@("window.location.href='" + @Url.Action("MyAccount", "Account") + "'");">
                             Chào, @HttpContext.Current.Session["lastName"] @HttpContext.Current.Session["firstName"]
                         </div>
-                            <div class="mr-3 item">Đăng xuất</div>
+                            <div id="logout" class="mr-3 item">Đăng xuất</div>
                         }
                         else
                         {
@@ -86,7 +86,7 @@
                             </div>
                         }
 
-                        <div class="item" onclick="@("window.location.href='" + @Url.Action("Index", "Cart") + "'");">Giỏ hàng <span id="cartCount"></span></div>
+                        <div class="item">Giỏ hàng <span id="cartCount"></span></div>
                     </div>
                 </div>
             </div>
@@ -146,8 +146,13 @@
     <script src="~/Assets/admin/js/owl.carousel.min.js"></script>
     <script src="~/Assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", required: false)
-    <script>
+<script>
         var gioHang = [];
+        $("#logout").click(function () {
+            console.log("lol");
+            localStorage.clear();
+            window.location.href = '@Url.Action("Index", "Account", new { isLogout = true})';
+        });
         if (localStorage.getItem("giohang")) {
             gioHang = JSON.parse(localStorage.getItem("giohang"));
         } else {
@@ -177,9 +182,14 @@
         function showMenuSort() {
             $("#menuSort").toggle();
         }
-    </script>
+</script>
     <script>
-        document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        if (localStorage.getItem("giohang")) {
+
+            document.getElementById("cartCount").innerHTML = "(" + JSON.parse(localStorage.getItem("giohang")).length + ")";
+        } else {
+            document.getElementById("cartCount").innerHTML = "(0)";
+        }
     </script>
 </body>
 </html>
