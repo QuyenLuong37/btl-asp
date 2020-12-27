@@ -41,7 +41,11 @@
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "text", @class = "form-control", placeholder = "Mật khẩu", required = "required" } })
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
-
+            <div class="form-group">
+                <label for="inputName">Xác nhận mật khẩu</label>
+                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @type = "text", @class = "form-control", placeholder = "Xác nhận mật khẩu", required = "required" } })
+                @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+            </div>
             <div class="form-group">
                 <label for="inputName">Địa chỉ</label>
                 @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", placeholder = "Địa chỉ", required = "required" } })

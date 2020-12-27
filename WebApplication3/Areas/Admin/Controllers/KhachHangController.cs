@@ -31,7 +31,13 @@ namespace WebApplication3.Areas.Admin.Controllers
         {
             var khachHangDDAO = new KhachHangDAO();
             var pw = Encryptor.MD5Hash(kh.password);
+            var cfpw = Encryptor.MD5Hash(kh.confirmPassword);
             kh.password = pw;
+            kh.confirmPassword = cfpw;
+            if (kh.password != kh.confirmPassword) {
+                ModelState.AddModelError("", "Xác nhận mật khẩu không hợp lệ!");
+                return View();
+            }
             var res = khachHangDDAO.them(kh);
             if (res)
             {
