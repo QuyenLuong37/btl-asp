@@ -86,7 +86,7 @@
                             </div>
                         }
 
-                        <div class="item">Giỏ hàng <span id="cartCount"></span></div>
+                        <div onclick="@("window.location.href='" + @Url.Action("Index", "Cart") + "'");" class="item">Giỏ hàng <span id="cartCount"></span></div>
                     </div>
                 </div>
             </div>

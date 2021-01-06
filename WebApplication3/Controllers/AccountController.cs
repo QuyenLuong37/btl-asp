@@ -13,6 +13,14 @@ namespace WebApplication3.Controllers
     {
 
         private ShopBanGiayDbConText db = new ShopBanGiayDbConText();
+
+        public ActionResult Edit(int id)
+        {
+            KhachHangDAO khDAO = new KhachHangDAO();
+            DanhMucDAO dm = new DanhMucDAO();
+            ViewBag.danhMuc = dm.GetAll().ToList();
+            return View(khDAO.getUserById(id));
+        }
         // GET: Account
         public ActionResult Index(bool? isLogout)
         {
@@ -32,6 +40,19 @@ namespace WebApplication3.Controllers
                 }
             }
             
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(KhachHang kh)
+        {
+            KhachHangDAO khDAO = new KhachHangDAO();
+            bool res = khDAO.updateCustomer(kh);
+            if (res)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Cập nhật xảy ra lỗi, vui lòng kiểm tra lại");
             return View();
         }
 

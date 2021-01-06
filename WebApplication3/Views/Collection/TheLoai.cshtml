@@ -82,10 +82,14 @@
                                                 <h6 class="font-weight-bolder">@item.shoeName</h6>
                                             </div>
                                             <div class="product-price  d-flex justify-content-between">
-                                                <div class="current-price font-weight-bold" style="color: #d30000">@item.price</div>
+                                                @{
+                                                    var price = Convert.ToDecimal(@item.price).ToString("#,##0.00");
+                                                    <div class="current-price font-weight-bold" style="color: #d30000">@price đ</div>
+                                                }
                                                 @if (@item.comparePrice > 0)
                                                 {
-                                                    <div class="original-price font-weight-bold" style="color: grey"><s>@item.comparePrice</s></div>
+                                                    var comparePrice = Convert.ToDecimal(@item.comparePrice).ToString("#,##0.00");
+                                                    <div class="original-price font-weight-bold" style="color: grey"><s>@comparePrice đ</s></div>
                                                 }
 
                                             </div>

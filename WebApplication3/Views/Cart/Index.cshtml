@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <h5>` + gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+                <h5>` + gioHang[i].price.toFixed() + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
             </div>
             <div class="col-3">
                 <div class="js-qty d-flex" style=" margin: 0 auto;max-width:150px;">
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <h5>` + gioHang[i].quantity * gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+                <h5>` + gioHang[i].quantity * gioHang[i].price.toFixed() + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
             </div>
             <div class="col-1 " onclick="removeCart(` + gioHang[i].shoeId +`)">
                 <i class="fas fa-trash-alt" style="color: red;font-size: 1.4rem;margin-bottom: .75rem"></i>

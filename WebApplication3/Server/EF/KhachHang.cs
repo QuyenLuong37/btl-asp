@@ -41,13 +41,13 @@
 
         public bool? isAdmin { get; set; }
 
-        [Required]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu ít nhất 8 kí tự")]
+        //[Required]
+        //[StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu ít nhất 8 kí tự")]
         public string password { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(100)]
-        [Compare("password", ErrorMessage = "Xác nhận mật khẩu không khớp. Nhập lại!")]
+        //[Compare("password", ErrorMessage = "Xác nhận mật khẩu không khớp. Nhập lại!")]
         public string confirmPassword { get; set; }
 
         public DateTime? createdAt { get; set; }

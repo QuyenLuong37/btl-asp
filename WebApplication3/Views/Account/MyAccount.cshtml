@@ -49,5 +49,8 @@
         </dd>
 
     </dl>
+
+    <br />
+    <button class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Edit", "Account", new { id = Model.userId}) + "'");">Chỉnh sửa</button>
 </div>
 
