@@ -1,0 +1,135 @@
+﻿@model PagedList.IPagedList<WebApplication3.Server.EF.DonHang>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="card-header">
+                <div style="display: flex">
+                    <div class="form-group">
+                        <input id="orderSearch" type="text" class="form-control" placeholder="Tìm kiếm  mã đơn hàng">
+                    </div>
+                    @*<a id="search" href="@Url.Action("Index", "DonHangs", new {term = "xxx", isSearchTerm = true, Type = "all" })" class="btn btn-primary mb-3 ml-3 ">Tìm kiếm</a>*@
+                    @Html.ActionLink("Tìm kiếm", "Index", "DonHangs", new { term = "xxx", isSearchTerm = true, Type = "all" }, new { @id = "search", @class = "btn btn-primary mb-3 ml-3" })
+
+                </div>
+                <div style="display: flex">
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "all" }) + "'");" type="button" class="btn btn-outline-dark mr-2">Tất cả</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "pending" }) + "'");" type="button" class="btn btn-outline-warning mr-2">Đang chờ</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "deliver" }) + "'");" type="button" class="btn btn-outline-info mr-2">Đang giao</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "delivered" }) + "'");" type="button" class="btn btn-outline-success mr-2">Đã nhận</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "DonHangs", new {term = "", isSearchTerm = false, Type = "canceled" }) + "'");" type="button" class="btn btn-outline-danger mr-2">Đã hủy</button>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Model.PageCount == 0)
+                {
+                    <h3>Không tìm thấy kết quả</h3>
+
+                }
+                else
+                {
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn hàng</th>
+                                <th>Khách hàng</th>
+                                <th>Địa chỉ giao hàng</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>#@Html.DisplayFor(modelItem => item.orderId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.customerName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.address)</td>
+                                    <td>
+                                        @if (@item.status == "pending")
+                                        {
+                                            <div class="ml-3">Đang chờ</div>
+                                        }
+                                        else if (@item.status == "deliver")
+                                        {
+                                            <div class="ml-3">Đang giao</div>
+                                        }
+                                        else if (@item.status == "delivered")
+                                        {
+                                            <div class="ml-3">Đã nhận</div>
+                                        }
+                                        else if (@item.status == "canceled")
+                                        {
+                                            <div class="ml-3">Đã hủy</div>
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.createdAt, "{dd/MM/yyyy}")</td>
+                                    <td>
+                                        <i style="padding: .75rem;
+                                            background: #6295a6;
+                                            border-radius: 6px;
+                                            color: #fff;
+                                            cursor: pointer;
+                                            margin-right: 1rem;" class="far fa-edit"
+                                           onclick="@("window.location.href='" + @Url.Action("Details", "DonHangs", new { id = item.orderId}) + "'");">
+                                        </i>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                }
+                @*Page @(@item.PageCount < @item.PageNumber ? 0 : @item.PageNumber) of @@item.PageCount*@
+                <div class="pages text-center mt-4 d-flex justify-content-center">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                        {
+                            LiElementClasses = new string[] { "page-item" }
+                        })
+
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có chắc chắn xóa không?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                <button type="button" class="btn btn-primary" onclick="remove()">Có</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+@section scripts {
+    <script>
+        $('#search').click(function () {
+            this.href = this.href.replace("xxx", $("#orderSearch").val().trim());
+        });
+    </script>
+} 

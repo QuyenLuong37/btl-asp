@@ -14,11 +14,10 @@ namespace WebApplication3.Server.DAO
             db = new ShopBanGiayDbConText();
         }
 
-        public int them(DonHang dh)
+        public void them(DonHang dh)
         {
             db.DonHangs.Add(dh);
             db.SaveChanges();
-            return dh.orderId;
         }
 
         public int themCTDH(ChiTietDonHang dh)

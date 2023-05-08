@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<WebApplication3.Server.EF.Giay>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutClient.cshtml";
+}
+
+<link href="~/Assets/client/css/paginator.css" rel="stylesheet" />
+<div class="mt-2 mb-3">
+    <h3 class="mb-4">Hàng giảm giá</h3>
+    <div>
+        <div class="">
+            <div class="product-list pl-4 pr-4 ">
+                <div class="row">
+                    @if (Model.PageCount == 0)
+                    {
+                        <div class="text-center d-flex justify-content-center w-100 mt-5"><h5 class="">Không có sản phẩm nào!</h5></div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-3 pl-3 pr-3 mb-5">
+
+                                <div class="item grid__item">
+                                    <div class="product-item">
+                                        <div class="product-normal">
+                                            <div class="product-img position-relative pb-3" style="border-bottom: 1px solid #dcdcdc">
+                                                <a>
+                                                    <img onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" style="width: 100%;object-fit: cover;height: 250px;" id="1019740063" class="lazyload" src="~/Images/@item.image" />
+                                                </a>
+                                                <div class="product-tags position-absolute" style="top: 0; right: 0;background: #d30000;color: #fff;padding: .25rem">
+                                                    <div class="tag-saleoff text-center">
+                                                        @if (item.promotion != null)
+                                                        {
+                                                            <span>-@item.promotion%</span>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <div class="product-actions text-center mt-3">
+                                                    <div>
+                                                        <button onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
+                                                        <button  onclick="addCart('@item.shoeId', ' @item.shoeName', '@item.price', '@item.image');@("window.location.href='" + @Url.Action("Index", "Cart") + "'");" type="button" class="btnBuyNow"><span>Mua ngay</span></button>
+                                                        <button onclick="addCart('@item.shoeId',' @item.shoeName', '@item.price', '@item.image' )">
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="product-title pt-3">
+                                                <h6 onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" class="font-weight-bolder">@item.shoeName</h6>
+                                            </div>
+                                            <div class="product-price  d-flex justify-content-between">
+                                                @{
+                                                    var price = Convert.ToDecimal(@item.price).ToString("#,##0.00");
+                                                    <div class="current-price font-weight-bold" style="color: #d30000">@price đ</div>
+                                                }
+                                                @if (@item.comparePrice > 0)
+                                                {
+
+                                                    var comparePrice = Convert.ToDecimal(@item.comparePrice).ToString("#,##0.00");
+                                                    <div class="original-price font-weight-bold" style="color: grey"><s>@comparePrice đ</s></div>
+                                                }
+
+                                            </div>
+
+                                            @if (@item.quantitySold != null && @item.quantitySold > 0)
+                                            {
+                                                <div class="product-sold">
+                                                    <span>Đã bán: @item.quantitySold</span>
+                                                </div>
+                                            }
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="pages text-center mt-4 d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("GiayNam",
+                new { page, price = ViewBag.price, filterType = ViewBag.filterType, size = ViewBag.size, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                {
+                    LiElementClasses = new string[] { "page-item" }
+                })
+            </div>
+
+        </div>
+    </div>
+</div>

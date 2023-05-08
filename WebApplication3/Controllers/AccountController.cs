@@ -11,12 +11,62 @@ namespace WebApplication3.Controllers
 {
     public class AccountController : Controller
     {
+
+        private ShopBanGiayDbConText db = new ShopBanGiayDbConText();
+
+        public ActionResult Edit(int id)
+        {
+            KhachHangDAO khDAO = new KhachHangDAO();
+            DanhMucDAO dm = new DanhMucDAO();
+            ViewBag.danhMuc = dm.GetAll().ToList();
+            return View(khDAO.getUserById(id));
+        }
         // GET: Account
-        public ActionResult Index()
+        public ActionResult Index(bool? isLogout)
+        {
+
+            DanhMucDAO dm = new DanhMucDAO();
+            ViewBag.danhMuc = dm.GetAll().ToList();
+            if (isLogout == true) {
+                System.Web.HttpContext.Current.Session.Clear();
+               
+            } else
+            {
+                var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+                if (userId != null)
+                {
+                    var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
+                    return RedirectToAction("MyAccount");
+                }
+            }
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(KhachHang kh)
+        {
+            KhachHangDAO khDAO = new KhachHangDAO();
+            bool res = khDAO.updateCustomer(kh);
+            if (res)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Cập nhật xảy ra lỗi, vui lòng kiểm tra lại");
+            return View();
+        }
+
+        public ActionResult MyAccount()
         {
             DanhMucDAO dm = new DanhMucDAO();
             ViewBag.danhMuc = dm.GetAll().ToList();
-            return View();
+            var userId = System.Web.HttpContext.Current.Session["USER_ID"];
+            if (userId != null)
+            {
+                var kh = db.KhachHangs.ToList().Where(item => item.userId == Convert.ToInt32(userId)).SingleOrDefault();
+                return View(kh);
+            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult Register()

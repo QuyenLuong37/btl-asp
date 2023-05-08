@@ -34,13 +34,14 @@
         <h3 class="body-product__promotion__title text-center">
             SẢN PHẨM KHUYẾN MÃI
         </h3>
-        <div class="body-product__promotion-list mt-4 ">
+        <div class=" mt-3 mb-2 mr-3" style="text-align: end;color: #38bdf7; cursor: pointer">
+            <span onclick="@("window.location.href='" + @Url.Action("Index", "HangKhuyenMai") + "'");">Xem tất cả</span>
+        </div>
+        <div class="body-product__promotion-list ">
             <div class="owl-carousel owl-theme">
-                <div class="item">
-                    <div class="mr-4 ml-4 mt-0 mb-0">
-                        @*@Html.Partial("~/Views/_Shared/_ShoeInfo.cshtml");*@
-                    </div>
-                </div>
+                @{
+                    Html.RenderAction("_KhuyenMai", "Home");
+                }
 
             </div>
         </div>
@@ -48,23 +49,24 @@
     </div>
 
     <div class="body-product__trending" style="margin-top: 4rem">
-        <h3 class="text-center">SẢN PHẨM NỔI BẬT</h3>
+        <h3 class="text-center">SẢN PHẨM MỚI</h3>
         <div class="d-flex justify-content-center mt-4">
-            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY NAM NỔI BẬT</button>
+            @*<button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY NAM NỔI BẬT</button>
             <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY NỮ NỔI BẬT</button>
-            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY COUPLE</button>
+            <button class="pt-2 pl-3 pb-2 pr-3 mr-3">GIÀY COUPLE</button>*@
         </div>
 
-        <div class="body-product__trending-list mt-4">
-            <div class="row">
-                <div class="col-3" style="margin-bottom: 3rem">
-                    @*@Html.Partial("~/Views/_Shared/_ShoeInfo.cshtml");*@
-                </div>
+        <div class="body-product__promotion-list mt-4 ">
+            <div class="owl-carousel owl-theme">
+                @{
+                    Html.RenderAction("_SanPhamMoi", "Home");
+                }
+
             </div>
         </div>
     </div>
 
-    <div class="body-news__trending" style="margin-top: 4rem; border-bottom: 1px solid #dcdcdc;padding-bottom: 2rem">
+    @*<div class="body-news__trending" style="margin-top: 4rem; border-bottom: 1px solid #dcdcdc;padding-bottom: 2rem">
         <h3 class="text-center">TIN TỨC NỔI BẬT</h3>
         <div class="row">
             <div class="body-news__trending-list mt-4 col-4">
@@ -89,7 +91,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 
 

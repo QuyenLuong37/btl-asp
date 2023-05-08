@@ -2,18 +2,19 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication3.Authorize;
 using WebApplication3.Server.DAO;
 using WebApplication3.Server.EF;
 
 namespace WebApplication3.Areas.Admin.Controllers
 {
-
+    [AuthorizeUserAttribute]
     public class GiayController : Controller
     {
         GiayDAO giayDAO = new GiayDAO();
         public ActionResult Index(int? page)
         {
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = page ?? 1;
             return View(giayDAO.GetAll().ToPagedList(pageNumber, pageSize));
         }

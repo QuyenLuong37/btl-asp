@@ -8,45 +8,57 @@
 <h4 class="mb-3">Thông tin Thanh toán</h4>
 <div class="checkout-info__address">
     <div class="form-group">
+        <label for="phone">Địa chỉ giao hàng</label>
+        <input type="text" class="form-control" id="address" value="@Request.QueryString["address"]" placeholder="Địa chỉ">
+
+    </div>
+    <div class="form-group">
         <label for="name">Tên</label>
         <input type="text" class="form-control" id="name" placeholder="Tên" value="@Request.QueryString["firstname"]">
     </div><div class="form-group">
         <label for="name">Họ</label>
         <input type="text" class="form-control" id="name" placeholder="Họ" value="@Request.QueryString["lastName"]">
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="exampleInputEmail1">Email</label>
         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="@Request.QueryString["email"]">
 
-    </div>
-    <div class="form-group">
+    </div>*@
+    @*<div class="form-group">
         <label for="phone">Điện thoại</label>
         <input type="text" class="form-control" id="phone" value="@Request.QueryString["phone"]" placeholder="Điện thoại">
 
-    </div>
-    <div class="form-group">
-        <label for="phone">Địa chỉ</label>
-        <input type="text" class="form-control" id="phone" value="@Request.QueryString["address"]" placeholder="Địa chỉ">
+    </div>*@
+    @*<div class="form-group">
+            <label for="province">Tỉnh</label>
+            <input type="text" class="form-control" id="province" value="@Request.QueryString["province"]" placeholder="Tỉnh">
 
-    </div>
-    <div class="form-group">
-        <label for="province">Tỉnh</label>
-        <input type="text" class="form-control" id="province" value="@Request.QueryString["province"]" placeholder="Tỉnh">
+        </div>
+        <div class="form-group">
+            <label for="district">Quận/Huyện</label>
+            <input type="text" class="form-control" id="district" value="@Request.QueryString["district"]" placeholder="Quận/Huyện">
 
-    </div>
-    <div class="form-group">
-        <label for="district">Quận/Huyện</label>
-        <input type="text" class="form-control" id="district" value="@Request.QueryString["district"]" placeholder="Quận/Huyện">
+        </div>
+        <div class="form-group">
+            <label for="com">Xã/Phường</label>
+            <input type="text" class="form-control" id="com" value="@Request.QueryString["commune"]" placeholder="Xã/Phường">
 
-    </div>
-    <div class="form-group">
-        <label for="com">Xã/Phường</label>
-        <input type="text" class="form-control" id="com" value="@Request.QueryString["commune"]" placeholder="Xã/Phường">
-
-    </div>
+        </div>*@
 </div>
 
 <div class="checkout-action d-flex justify-content-between">
     <a href="@Url.Action("Index", "Cart")"><i class="fas fa-angle-left"></i> <span>Giỏ hàng</span> </a>
-    <a href="@Url.Action("Payment", "PaymentMethod")" class="btn btn-primary">Phương thức thanh toán</a>
+    @*<a href="@Url.Action("Payment", "PaymentMethod", new {address = docume })" class="btn btn-primary">Phương thức thanh toán</a>*@
+    @*<button id="btnRedirect" type="button" class="btn btn-primary">Phương thức thanh toán</button>*@
+    @Html.ActionLink("Phương thức thanh toán", "Payment", "PaymentMethod", new { address ="xxx", TypeId = "1" }, new { @id = "link" })
+
 </div>
+
+
+@section scripts {
+    <script>
+        $('#link').click(function () {
+            this.href = this.href.replace("xxx", $("#address").val().trim());
+        });
+    </script>
+} 

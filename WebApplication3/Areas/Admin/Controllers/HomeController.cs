@@ -11,7 +11,7 @@ namespace WebApplication3.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         // GET: Admin/Home
-        [AuthorizeUserAttribute]
+        //[AuthorizeUserAttribute]
         public ActionResult Index()
         {
             return View();

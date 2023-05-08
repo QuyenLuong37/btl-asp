@@ -1,0 +1,27 @@
+﻿/*các xử lý định dạng cho toàn trang basic.html*/
+
+@import url('fonts.css');
+
+
+*{padding: 0;margin: 0;}
+
+body{
+	background: #efefff !important;
+	color: #333;
+	font-family: MYRIADPRO-LIGHT_0;
+	font-size: 14px;
+}
+
+.clr{clear: both;}
+
+input,button,textarea, select, iframe{
+	padding: 8px 10px;
+	border-radius: 5px;
+	border: 1px solid #aaa;
+}	
+/*input:hover{
+	background: #666;
+	color: #fff;
+	cursor: hand;
+}*/
+a{text-decoration: none;color: #555;}

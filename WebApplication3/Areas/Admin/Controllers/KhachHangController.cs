@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,13 +10,15 @@ using WebApplication3.Server.EF;
 
 namespace WebApplication3.Areas.Admin.Controllers
 {
-
+    [AuthorizeUserAttribute]
     public class KhachHangController : Controller
     {
         KhachHangDAO khDAO = new KhachHangDAO();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(khDAO.getAll());
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+            return View(khDAO.getAll().ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Them()
@@ -28,7 +31,13 @@ namespace WebApplication3.Areas.Admin.Controllers
         {
             var khachHangDDAO = new KhachHangDAO();
             var pw = Encryptor.MD5Hash(kh.password);
+            var cfpw = Encryptor.MD5Hash(kh.confirmPassword);
             kh.password = pw;
+            kh.confirmPassword = cfpw;
+            if (kh.password != kh.confirmPassword) {
+                ModelState.AddModelError("", "Xác nhận mật khẩu không hợp lệ!");
+                return View();
+            }
             var res = khachHangDDAO.them(kh);
             if (res)
             {

@@ -61,23 +61,23 @@
                 </div>
             </div>
             <div class="col-2">
-                <h5>` + gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+                <h5>` + gioHang[i].price.toFixed() + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
             </div>
             <div class="col-3">
                 <div class="js-qty d-flex" style=" margin: 0 auto;max-width:150px;">
-                    <button type="button" style="width: 30%;outline: none" onclick="decreaseQuantity(` + gioHang[i].id + `)">
+                    <button type="button" style="width: 30%;outline: none" onclick="decreaseQuantity(` + gioHang[i].shoeId + `)">
                         <span class="icon icon-minus" aria-hidden="true"></span>
                         <span class="fallback-text" aria-hidden="true">−</span>
                     </button>
-                    <input id="quantity" class="text-center" type="number" value="` + gioHang[i].quantity + `" min="1"  style="width: 40%;outline: none" onchange="changeQuantity(event, ` + gioHang[i].id + `)" >
-                    <button type="button"  style="width: 30%;outline: none" onclick="increaseQuantity(` + gioHang[i].id + `)">
+                    <input id="quantity" class="text-center" type="number" value="` + +gioHang[i].quantity + `" min="1"  style="width: 40%;outline: none" onchange="changeQuantity(event, ` + +gioHang[i].id + `)" >
+                    <button type="button"  style="width: 30%;outline: none" onclick="increaseQuantity(` + gioHang[i].shoeId + `)">
                         <span class="icon icon-plus" aria-hidden="true"></span>
                         <span class="fallback-text" aria-hidden="true">+</span>
                     </button>
                 </div>
             </div>
             <div class="col-2">
-                <h5>` + gioHang[i].quantity * gioHang[i].price + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
+                <h5>` + gioHang[i].quantity * gioHang[i].price.toFixed() + `<span style="text-decoration: underline;font-weight: 700;"> đ</span></h5>
             </div>
             <div class="col-1 " onclick="removeCart(` + gioHang[i].shoeId +`)">
                 <i class="fas fa-trash-alt" style="color: red;font-size: 1.4rem;margin-bottom: .75rem"></i>
@@ -109,7 +109,7 @@
         function increaseQuantity(id) {
             console.log(gioHang);
             for (i in gioHang) {
-                if (+gioHang[i].id === id) {
+                if (+gioHang[i].shoeId === +id) {
                     gioHang[i].quantity += 1;
                 }
             }
@@ -120,7 +120,7 @@
         }
         function decreaseQuantity(id) {
             for (i in gioHang) {
-                if (+gioHang[i].id === id) {
+                if (+gioHang[i].shoeId === +id) {
                     gioHang[i].quantity -= 1;
                 }
             }

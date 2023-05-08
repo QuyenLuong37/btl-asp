@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -10,14 +11,17 @@
     public partial class KhachHang
     {
         [StringLength(50)]
+        [DisplayName("Tên: ")]
         public string firstName { get; set; }
 
         [StringLength(20)]
+        [DisplayName("Họ: ")]
         public string lastName { get; set; }
 
         public int? age { get; set; }
 
         [StringLength(200)]
+        [DisplayName("Địa chỉ: ")]
         public string address { get; set; }
         [StringLength(20)]
         public string province { get; set; }
@@ -28,6 +32,7 @@
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Email: ")]
         public string email { get; set; }
 
 
@@ -36,13 +41,13 @@
 
         public bool? isAdmin { get; set; }
 
-        [Required]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu ít nhất 8 kí tự")]
+        //[Required]
+        //[StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu ít nhất 8 kí tự")]
         public string password { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(100)]
-        [Compare("password", ErrorMessage = "Xác nhận mật khẩu không khớp. Nhập lại!")]
+        //[Compare("password", ErrorMessage = "Xác nhận mật khẩu không khớp. Nhập lại!")]
         public string confirmPassword { get; set; }
 
         public DateTime? createdAt { get; set; }

@@ -44,8 +44,8 @@
                                         <div class="product-item">
                                             <div class="product-normal">
                                                 <div class="product-img position-relative pb-3" style="border-bottom: 1px solid #dcdcdc">
-                                                    <a href="/products/dincox007-white">
-                                                        <img style="width: 100%;object-fit: cover;height: 250px;" id="1019740063" class="lazyload" src="~/Images/@item.image" />
+                                                    <a >
+                                                        <img onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" style="width: 100%;object-fit: cover;height: 250px;" id="1019740063" class="lazyload" src="~/Images/@item.image" />
                                                     </a>
                                                     <div class="product-tags position-absolute" style="top: 0; right: 0;background: #d30000;color: #fff;padding: .25rem">
                                                         <div class="tag-saleoff text-center">
@@ -58,8 +58,8 @@
                                                     </div>
                                                     <div class="product-actions text-center mt-3">
                                                         <div>
-                                                            <button type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
-                                                            <button type="button" class="btnBuyNow"><span>Mua ngay</span></button>
+                                                            <button onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
+                                                            <button  onclick="addCart('@item.shoeId', ' @item.shoeName', '@item.price', '@item.image');@("window.location.href='" + @Url.Action("Index", "Cart") + "'");" type="button" class="btnBuyNow"><span>Mua ngay</span></button>
                                                             <button onclick="addCart('@item.shoeId',' @item.shoeName', '@item.price', '@item.image' )">
                                                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                                             </button>
@@ -70,13 +70,17 @@
                                                 </div>
 
                                                 <div class="product-title pt-3">
-                                                    <h6 class="font-weight-bolder">@item.shoeName</h6>
+                                                    <h6 onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" class="font-weight-bolder">@item.shoeName</h6>
                                                 </div>
                                                 <div class="product-price  d-flex justify-content-between">
-                                                    <div class="current-price font-weight-bold" style="color: #d30000">@item.price</div>
+                                                    @{ 
+                                                        var price = Convert.ToDecimal(@item.price).ToString("#,##0.00");
+                                                    }
+                                                    <div class="current-price font-weight-bold" style="color: #d30000">@price đ</div>
                                                     @if (@item.comparePrice > 0)
                                                     {
-                                                        <div class="original-price font-weight-bold" style="color: grey"><s>@item.comparePrice</s></div>
+                                                        var comparePrice = Convert.ToDecimal(@item.comparePrice).ToString("#,##0.00");
+                                                        <div class="original-price font-weight-bold" style="color: grey"><s>@comparePrice đ</s></div>
                                                     }
 
                                                 </div>

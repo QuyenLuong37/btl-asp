@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication3.Server.EF.Giay>
+
+@foreach (var item in Model)
+{
+    <div class="item grid__item ml-2 mr-2">
+        <div class="product-item">
+            <div class="product-normal">
+                <div class="product-img position-relative pb-3" style="border-bottom: 1px solid #dcdcdc">
+                    <a>
+                        <img onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" style="width: 250px;object-fit: cover;height: 280px;" id="1019740063" class="lazyload" src="~/Images/@item.image" alt="COX007 WHITE">
+                    </a>
+                    <div class="product-tags position-absolute" style="top: 0; right: 0;background: #d30000;color: #fff;padding: .25rem">
+                        <div class="tag-saleoff text-center">
+                            @if (item.comparePrice > item.price)
+                            {
+                                double gia = (double)(100 - item.price / item.comparePrice * 100);
+                                var promotion = Math.Round(gia, 0).ToString();
+                                <span>-@promotion%</span>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="product-actions text-center mt-3">
+                        <div>
+                            <button onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" type="button" class="btnQuickView"><span><i class="fa fa-search-plus" aria-hidden="true"></i></span></button>
+                            <button onclick="addCart('@item.shoeId', ' @item.shoeName', '@item.price', '@item.image');@("window.location.href='" + @Url.Action("Index", "Cart") + "'");" id="muangay" type="button" class="btnBuyNow"><span>Mua ngay</span></button>
+                            <button onclick="addCart('@item.shoeId',' @item.shoeName', '@item.price', '@item.image' )">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="product-title pt-3">
+                    <h6 onclick="@("window.location.href='" + @Url.Action("Details", "ChiTietSanPham", new { id = item.shoeId }) + "'");" class="font-weight-bolder">@item.shoeName</h6>
+                </div>
+                <div class="product-price  d-flex justify-content-between">
+                    @{
+                        var price = Convert.ToDecimal(@item.price).ToString("#,##0.00");
+                        <div class="current-price font-weight-bold" style="color: #d30000">@price đ</div>
+                    }
+                    @if (@item.comparePrice > 0)
+                    {
+                        var comparePrice = Convert.ToDecimal(@item.comparePrice).ToString("#,##0.00");
+                        <div class="original-price font-weight-bold" style="color: grey"><s>@comparePrice đ</s></div>
+                    }
+
+                </div>
+
+                @if (@item.quantitySold != null && @item.quantitySold > 0)
+                {
+                    <div class="product-sold">
+                        <span>Đã bán: @item.quantitySold</span>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+
+    </div>
+}

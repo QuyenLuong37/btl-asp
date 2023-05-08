@@ -1,8 +1,6 @@
-﻿
-
-
-namespace WebApplication3.Server.EF
+﻿namespace WebApplication3.Server.EF
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -13,10 +11,12 @@ namespace WebApplication3.Server.EF
         [Key]
         public int orderId { get; set; }
 
-        public int customerId { get; set; }
+        public int userId { get; set; }
 
         [StringLength(100)]
         public string address { get; set; }
+        [StringLength(100)]
+        public string customerName { get; set; }
 
         [StringLength(100)]
         public string note { get; set; }
@@ -26,6 +26,7 @@ namespace WebApplication3.Server.EF
 
         public int? discountId { get; set; }
 
+        public DateTime? createdAt { get; set; }
         public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; }
     }
 }
